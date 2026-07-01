@@ -1,14 +1,24 @@
 :root {
-  --ink: #111614;
-  --muted: #66706b;
-  --line: #d8ded8;
-  --paper: #f7f6f1;
-  --panel: #ffffff;
-  --accent: #1f7a5a;
-  --accent-dark: #11543d;
-  --rose: #9f4f5f;
-  --blue: #315b84;
-  --shadow: 0 24px 70px rgba(21, 29, 24, 0.12);
+  /* Refined-light palette: true off-white surface, one committed emerald hue.
+     Values verified for WCAG AA against their backgrounds (see DESIGN.md). */
+  --bg: oklch(99% 0 0);              /* true off-white, chroma 0 — no warm/AI tint */
+  --surface: #ffffff;               /* cards, separated from bg by hairline, not shadow */
+  --ink: oklch(24% 0.012 160);      /* primary text — 16:1 on bg */
+  --ink-soft: oklch(38% 0.013 160); /* lede / intro prose — 9.6:1 */
+  --muted: oklch(46% 0.013 160);    /* labels, dates, meta — 6.9:1 */
+  --line: oklch(90% 0.008 160);     /* hairline borders / dividers */
+  --accent: oklch(50% 0.13 160);    /* emerald — links, hairline emphasis (5.5:1) */
+  --accent-strong: oklch(45% 0.115 160); /* CTA bg + small labels — 6.9:1, white text passes */
+  --accent-hover: oklch(40% 0.10 160);   /* pressed / hover on primary */
+  --accent-tint: oklch(95% 0.03 160);    /* faint accent wash */
+  --contact-bg: oklch(22% 0.014 160);    /* deep emerald-black closing block */
+  --on-dark: oklch(95% 0.006 160);       /* text on contact-bg — 14.9:1 */
+  --on-dark-accent: oklch(80% 0.09 160); /* accent label on contact-bg — 9.6:1 */
+  --shadow: 0 20px 60px rgba(17, 40, 30, 0.10);
+
+  /* Type: humanist grotesque for voice, mono reserved for data (dates, tech tags) */
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 * {
@@ -19,17 +29,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep anchored headings clear of the sticky header */
+:where(#top, #work, #projects, #contact) {
+  scroll-margin-top: 72px;
+}
+
 body {
   margin: 0;
   color: var(--ink);
-  background:
-    linear-gradient(90deg, rgba(17, 22, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(17, 22, 20, 0.04) 1px, transparent 1px),
-    var(--paper);
-  background-size: 48px 48px;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -57,7 +71,7 @@ a {
   place-items: center;
   border: 1px solid var(--ink);
   background: var(--ink);
-  color: var(--paper);
+  color: var(--bg);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -67,15 +81,18 @@ nav {
   display: flex;
   gap: 6px;
   padding: 4px;
-  border: 1px solid rgba(17, 22, 20, 0.1);
-  background: rgba(247, 246, 241, 0.76);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.78);
 }
 
 nav a,
 .button,
 .contact-links a {
-  min-height: 28px;
-  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 7px 12px;
   color: var(--ink);
   font-size: 0.76rem;
   font-weight: 700;
@@ -84,7 +101,16 @@ nav a,
 nav a:hover,
 .button:hover,
 .contact-links a:hover {
-  color: var(--accent-dark);
+  color: var(--accent-strong);
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.contact a:focus-visible {
+  outline-color: var(--on-dark-accent);
 }
 
 main {
@@ -105,10 +131,10 @@ main {
 
 .eyebrow {
   margin: 0 0 6px;
-  color: var(--accent-dark);
-  font-size: 0.65rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -120,19 +146,23 @@ p {
 }
 
 h1 {
-  max-width: 760px;
+  max-width: 16ch;
   margin-bottom: 10px;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  line-height: 0.95;
-  letter-spacing: 0;
+  font-size: clamp(2.2rem, 5.2vw, 3.6rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 h2 {
-  max-width: 760px;
+  max-width: 24ch;
   margin-bottom: 0;
-  font-size: clamp(1.05rem, 1.8vw, 1.6rem);
-  line-height: 1.1;
-  letter-spacing: 0;
+  font-size: clamp(1.1rem, 1.9vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 h3 {
@@ -140,23 +170,24 @@ h3 {
   align-items: center;
   gap: 6px;
   margin-bottom: 4px;
-  font-size: 0.9rem;
-  line-height: 1.2;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .logo {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
   object-fit: contain;
-  border-radius: 3px;
-  vertical-align: middle;
-  margin: 0 1px -2px 2px;
 }
 
 .lede {
-  max-width: 640px;
-  color: #3e4742;
-  font-size: clamp(0.85rem, 1.2vw, 0.98rem);
+  max-width: 60ch;
+  color: var(--ink-soft);
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  text-wrap: pretty;
 }
 
 .hero-actions {
@@ -171,35 +202,43 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(17, 22, 20, 0.14);
-  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.button:hover {
+  border-color: var(--accent);
 }
 
 .button.primary {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: white;
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: #fff;
 }
 
 .button.primary:hover {
-  color: white;
-  background: var(--accent-dark);
+  color: #fff;
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
 }
 
 .intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
   gap: clamp(16px, 3vw, 32px);
-  padding: 10px 16px;
+  padding: 14px 18px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--surface);
 }
 
 .intro > p {
   margin-bottom: 0;
-  color: #303833;
-  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
-  line-height: 1.3;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.45;
+  text-wrap: pretty;
 }
 
 dl {
@@ -210,9 +249,9 @@ dl {
 
 dt {
   color: var(--muted);
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -221,8 +260,8 @@ dd {
   align-items: center;
   gap: 6px;
   margin: 2px 0 0;
-  font-size: 0.85rem;
-  font-weight: 750;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .section {
@@ -245,9 +284,9 @@ dd {
 
 .timeline article,
 .project {
-  border: 1px solid rgba(17, 22, 20, 0.12);
-  background: rgba(255, 255, 255, 0.72);
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .timeline article {
@@ -259,8 +298,8 @@ dd {
 
 .timeline article:hover,
 .project:hover {
-  border-color: rgba(31, 122, 90, 0.45);
-  background: #fff;
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
   transform: translateY(-2px);
 }
 
@@ -268,25 +307,33 @@ dd {
 .project p {
   margin-bottom: 0;
   color: var(--muted);
+  text-wrap: pretty;
 }
 
-.period,
-.project span {
-  color: var(--blue);
-  font-size: 0.66rem;
-  font-weight: 850;
-  letter-spacing: 0.05em;
+.period {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 
 .project span {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  color: var(--accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .project span .logo:not(:first-child) {
-  margin-left: 6px;
+  margin-left: 5px;
 }
 
 .project-grid {
@@ -308,17 +355,26 @@ dd {
   gap: 20px;
   align-items: end;
   margin: 10px 0 6px;
-  padding: 12px 18px;
-  background: var(--ink);
-  color: var(--paper);
+  padding: 16px 20px;
+  background: var(--contact-bg);
+  color: var(--on-dark);
 }
 
 .contact .eyebrow {
-  color: #9ad5bd;
+  color: var(--on-dark-accent);
 }
 
 .contact h2 {
-  max-width: 720px;
+  max-width: 20ch;
+}
+
+.contact-note {
+  max-width: 44ch;
+  margin: 10px 0 0;
+  color: color-mix(in oklch, var(--on-dark) 82%, var(--contact-bg));
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .contact-links {
@@ -329,9 +385,14 @@ dd {
 }
 
 .contact-links a {
-  border-color: rgba(247, 246, 241, 0.2);
-  background: rgba(247, 246, 241, 0.08);
-  color: var(--paper);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--on-dark);
+}
+
+.contact-links a:hover {
+  border-color: var(--on-dark-accent);
+  color: #fff;
 }
 
 footer {
@@ -341,7 +402,9 @@ footer {
   margin: 0 auto;
   padding: 0 0 4px;
   color: var(--muted);
+  font-family: var(--font-mono);
   font-size: 0.72rem;
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 820px) {
@@ -413,10 +476,6 @@ footer {
     justify-content: flex-end;
   }
 
-  .project {
-    min-height: 190px;
-  }
-
   .intro > p {
     font-size: 1.08rem;
     line-height: 1.35;
@@ -425,5 +484,58 @@ footer {
   .hero-actions {
     gap: 8px;
   }
+}
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .timeline article:hover,
+  .project:hover {
+    transform: none;
+  }
+}
+
+/* A CV should print cleanly to PDF */
+@media print {
+  .site-header {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  .timeline article,
+  .project,
+  .intro {
+    break-inside: avoid;
+  }
+
+  .contact {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+
+  .contact .eyebrow,
+  .contact-note,
+  .contact h2 {
+    color: var(--ink);
+  }
+
+  .contact-links a {
+    color: var(--ink);
+    border-color: var(--line);
+    background: none;
+  }
 }
