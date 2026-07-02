@@ -83,14 +83,42 @@
     </div>
 
     <script>
-      const PASSWORD = "AIE";
-      const GATE_KEY = "claude-progress-unlocked";
+      const GATE_KEY = "claude-progress-key";
       const STORAGE_KEY = "claude-progress-overrides";
       let activeCategory = "All";
 
-      async function loadGoals() {
+      function b64ToBytes(b64) {
+        return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      }
+
+      async function deriveKey(password, saltBytes, iterations) {
+        const enc = new TextEncoder();
+        const baseKey = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]);
+        return crypto.subtle.deriveKey(
+          { name: "PBKDF2", salt: saltBytes, iterations, hash: "SHA-256" },
+          baseKey,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["decrypt"]
+        );
+      }
+
+      // The password is never stored in this file. It only ever exists in
+      // memory long enough to derive a decryption key; a wrong guess just
+      // fails AES-GCM's authentication check below.
+      async function decryptGoals(password) {
         const res = await fetch("progress.json");
-        const data = await res.json();
+        const payload = await res.json();
+        const salt = b64ToBytes(payload.salt);
+        const iv = b64ToBytes(payload.iv);
+        const data = b64ToBytes(payload.ciphertext);
+        const key = await deriveKey(password, salt, payload.iterations);
+        const plainBuf = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, data);
+        return JSON.parse(new TextDecoder().decode(plainBuf));
+      }
+
+      async function loadGoals(password) {
+        const data = await decryptGoals(password);
         const overrides = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
         return data.goals.map((g) => ({ ...g, done: overrides[g.id] ?? g.done }));
       }
@@ -166,25 +194,33 @@
       const gateInput = document.getElementById("gate-input");
       const gateError = document.getElementById("gate-error");
 
-      function unlock() {
-        sessionStorage.setItem(GATE_KEY, "1");
+      // Throws (wrong password / tampered ciphertext) if decryption fails.
+      // On success only, the password is cached in sessionStorage so a
+      // reload in the same tab doesn't require retyping it.
+      async function unlock(password) {
+        const goals = await loadGoals(password);
+        sessionStorage.setItem(GATE_KEY, password);
         gate.style.display = "none";
         gatedContent.style.display = "block";
-        loadGoals().then(render);
+        render(goals);
       }
 
-      if (sessionStorage.getItem(GATE_KEY) === "1") {
-        unlock();
+      const stored = sessionStorage.getItem(GATE_KEY);
+      if (stored) {
+        unlock(stored).catch(() => {
+          sessionStorage.removeItem(GATE_KEY);
+          gateInput.focus();
+        });
       } else {
         gateInput.focus();
       }
 
-      gateForm.addEventListener("submit", (e) => {
+      gateForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        if (gateInput.value === PASSWORD) {
+        try {
+          await unlock(gateInput.value);
           gateError.hidden = true;
-          unlock();
-        } else {
+        } catch (err) {
           gateError.hidden = false;
           gateForm.classList.remove("shake");
           void gateForm.offsetWidth;
