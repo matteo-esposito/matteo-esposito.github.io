@@ -207,16 +207,6 @@ main {
   padding: 32px 0 16px;
 }
 
-.avatar {
-  width: 104px;
-  height: 104px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  object-fit: cover;
-}
-
 .hero-copy {
   max-width: 640px;
 }
@@ -818,11 +808,6 @@ button.button {
 @media (max-width: 480px) {
   h1 {
     font-size: clamp(1.6rem, 8vw, 2rem);
-  }
-
-  .avatar {
-    width: 80px;
-    height: 80px;
   }
 
   .intro > p {
