@@ -22,7 +22,7 @@ Technical and human. Precise without being cold; personable without being cute. 
 - **Corporate / enterprise SaaS templates.** Stocky, safe, soulless polish. No hero-metric template, no marketing-speak.
 - **Resume-in-HTML.** A dry, purely functional list of jobs with no point of view or craft. The content is CV-shaped, but the execution must have a distinct signature.
 
-Reference feel (gesture toward, don't copy): Linear / Vercel technical precision and high-contrast restraint; Stripe / Rauno-Freiberg meticulous detail and subtle, earned motion.
+Reference feel: as of this pivot, the owner asked explicitly for GitHub's own Primer design language (dark header, bordered boxes, system fonts, soft light/dark toggle) — see DESIGN.md. Before that, the gesture-toward references were Linear / Vercel technical precision and Stripe / Rauno-Freiberg meticulous detail; still true in spirit (restraint, precision, no wasted motion), just expressed through GitHub's specific chrome now.
 
 ## Design Principles
 

@@ -10,22 +10,39 @@
     <meta property="og:description" content="A running log of Claude Code proficiency exercises.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://matteo-esposito.github.io/progress.html">
-    <meta name="theme-color" content="#151d18">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23151d18'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='60' font-weight='800' fill='%23fcfcfc' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=Spline+Sans+Mono:wght@400;500&display=swap">
+    <meta name="theme-color" content="#1f2328">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231f2328'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='60' font-weight='800' fill='%23f0f6fc' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header" aria-label="Primary navigation">
-      <a class="mark" href="index.html" aria-label="Matteo Esposito home">ME</a>
-      <nav>
-        <a href="index.html#work">Work</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="progress.html">Progress</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+      <div class="site-header-inner">
+        <a class="mark" href="index.html" aria-label="Matteo Esposito home">ME</a>
+        <div class="header-right">
+          <nav>
+            <a href="index.html#work">Work</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="progress.html">Progress</a>
+            <a href="index.html#contact">Contact</a>
+          </nav>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3.2"></circle>
+              <path d="M8 0.5v2M8 13.5v2M15.5 8h-2M2.5 8h-2M13.3 2.7l-1.4 1.4M4.1 11.9l-1.4 1.4M13.3 13.3l-1.4-1.4M4.1 4.1L2.7 2.7"></path>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8 1a7 7 0 108.4 8.4A5.5 5.5 0 018 1z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
     </header>
 
     <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-heading">
@@ -230,5 +247,6 @@
         }
       });
     </script>
+    <script src="theme.js"></script>
   </body>
 </html>

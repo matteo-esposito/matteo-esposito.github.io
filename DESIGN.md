@@ -1,55 +1,68 @@
 ---
 name: Matteo Esposito — Personal CV
-description: A refined-light personal CV site for an ML developer; one committed emerald hue on true off-white.
+description: A GitHub Primer-inspired personal CV site for an ML developer, with a soft light/dark toggle.
 colors:
-  instrument-white: "oklch(99% 0 0)"
-  surface-white: "#ffffff"
-  pine-ink: "oklch(24% 0.012 160)"
-  pine-ink-soft: "oklch(38% 0.013 160)"
-  sage-muted: "oklch(46% 0.013 160)"
-  hairline: "oklch(90% 0.008 160)"
-  signal-emerald: "oklch(50% 0.13 160)"
-  signal-emerald-strong: "oklch(45% 0.115 160)"
-  signal-emerald-hover: "oklch(40% 0.10 160)"
-  emerald-tint: "oklch(95% 0.03 160)"
-  forest-black: "oklch(22% 0.014 160)"
-  on-dark: "oklch(95% 0.006 160)"
-  on-dark-accent: "oklch(80% 0.09 160)"
+  canvas: "#ffffff"
+  canvas-dark: "#22272e"
+  surface: "#ffffff"
+  surface-dark: "#2d333b"
+  canvas-subtle: "#f6f8fa"
+  canvas-subtle-dark: "#2d333b"
+  border: "#d0d7de"
+  border-dark: "#444c56"
+  border-muted: "#d8dee4"
+  border-muted-dark: "#373e47"
+  fg: "#1f2328"
+  fg-dark: "#adbac7"
+  fg-muted: "#59636e"
+  fg-muted-dark: "#909dab"
+  accent: "#0969da"
+  accent-dark: "#539bf5"
+  accent-emphasis: "#0550ae"
+  accent-emphasis-dark: "#6cb6ff"
+  btn-primary: "#1f883d"
+  btn-primary-dark: "#347d39"
+  btn-primary-hover: "#1a7f37"
+  btn-primary-hover-dark: "#46954a"
+  header-bg: "#1f2328"
+  header-bg-dark: "#1c2128"
+  header-fg: "#f0f6fc"
+  header-fg-dark: "#cdd9e5"
 typography:
   display:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.2rem, 5.2vw, 3.6rem)"
-    fontWeight: 800
-    lineHeight: 0.98
-    letterSpacing: "-0.025em"
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif"
+    fontSize: "clamp(1.75rem, 3.4vw, 2.25rem)"
+    fontWeight: 700
+    lineHeight: 1.15
+    letterSpacing: "-0.011em"
   headline:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.1rem, 1.9vw, 1.65rem)"
-    fontWeight: 700
-    lineHeight: 1.12
-    letterSpacing: "-0.015em"
-  title:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.95rem"
-    fontWeight: 700
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif"
+    fontSize: "clamp(1.25rem, 1.9vw, 1.5rem)"
+    fontWeight: 600
     lineHeight: 1.25
+    letterSpacing: "-0.01em"
+  title:
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 600
+    lineHeight: 1.3
   body:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.7rem"
-    fontWeight: 700
-    letterSpacing: "0.1em"
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 600
   mono:
-    fontFamily: "Spline Sans Mono, ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "0.72rem"
+    fontFamily: "ui-monospace, SF Mono, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace"
+    fontSize: "0.72rem-0.8125rem"
     fontWeight: 500
-    letterSpacing: "0.02em"
 rounded:
-  none: "0"
+  medium: "6px"
+  pill: "999px"
+  small: "4px"
 spacing:
   xs: "6px"
   sm: "10px"
@@ -57,147 +70,135 @@ spacing:
   lg: "clamp(16px, 3vw, 32px)"
 components:
   button-primary:
-    backgroundColor: "{colors.signal-emerald-strong}"
-    textColor: "{colors.surface-white}"
-    rounded: "{rounded.none}"
-    padding: "6px 10px"
-  button-primary-hover:
-    backgroundColor: "{colors.signal-emerald-hover}"
-    textColor: "{colors.surface-white}"
-  button-ghost:
-    backgroundColor: "{colors.surface-white}"
-    textColor: "{colors.pine-ink}"
-    rounded: "{rounded.none}"
-    padding: "6px 10px"
-  card:
-    backgroundColor: "{colors.surface-white}"
-    textColor: "{colors.pine-ink}"
-    rounded: "{rounded.none}"
-    padding: "10px 12px"
+    backgroundColor: "{colors.btn-primary}"
+    textColor: "#ffffff"
+    rounded: "{rounded.medium}"
+    padding: "0 12px"
+  button-default:
+    backgroundColor: "#f6f8fa"
+    textColor: "{colors.fg}"
+    border: "rgba(31,35,40,0.15)"
+    rounded: "{rounded.medium}"
+  box:
+    backgroundColor: "{colors.surface}"
+    border: "{colors.border}"
+    rounded: "{rounded.medium}"
+    shadow: "0 1px 0 rgba(31,35,40,0.04)"
+  topic-pill:
+    backgroundColor: "accent at 14% opacity"
+    textColor: "{colors.accent}"
+    rounded: "{rounded.pill}"
 ---
 
 # Design System: Matteo Esposito — Personal CV
 
 ## 1. Overview
 
-**Creative North Star: "The Precision Instrument"**
+**Creative North Star: "GitHub, worn as a personal profile."**
 
-This is the personal site of an ML developer, and it should read the way well-written code reads: exact, unhurried, nothing decorative that isn't load-bearing. The system is a *refined-light* build — a true off-white surface (chroma 0, deliberately NOT a warm cream) carrying a single committed emerald hue. The emerald is the one voice in the room: it marks the primary action, the links, the technology tags, and the section that closes the page. Everything else is near-black ink, sage-tinted grays, and hairline rules. The influence is Stripe / Rauno-Freiberg meticulousness rather than dark-mode developer-tool drama: quiet, high-contrast, obsessively aligned.
+This is a deliberate pivot, made at the owner's explicit request, from the site's original refined-light emerald system to a GitHub Primer-inspired look: the chrome (nav, buttons, boxes, meta text) reads like GitHub's actual application interface, while the content (name, bio, experience, projects) is composed the way a GitHub user or repo profile page is composed. The header is a permanently dark bar regardless of theme — GitHub's own header never lightens in light mode, and neither does this one. Boxes are white-or-dark surfaces separated by a 1px border and a near-invisible resting shadow, not by background tint or drop-shadow stacks. Corners are a consistent 6px across buttons and boxes; filter chips and topic tags go full pill (999px). Type is GitHub's real system-font stack — no webfont loading, which is also a quiet performance win.
 
-The layout spine is a two-column rhythm — a section label and heading on the left, content on the right — that stays scannable in the under-a-minute window a recruiter actually gives it. Depth is conveyed by hairline borders and a single restrained hover lift, never by drop-shadow stacks or glass. The one saturated moment is the closing contact block: a deep pine-black panel that lets the page land on a confident dark note.
-
-This system explicitly rejects the generic-AI-landing look the owner named as an anti-reference: no warm cream/sand body, no gradient text, no identical icon-card grids, no `01/02/03` scaffolding. It also rejects corporate-SaaS-template polish and the dry resume-in-HTML. Warmth here comes from voice and precision, not from a beige background.
+The **Projects** section is composed as a repo list: bold blue repo-name links, a muted description line, and small rounded topic pills with the existing tech-logo icons. The **hero** is composed as a profile header: a circular avatar (reusing the site's existing `assets/avatar.jpg`, previously only used for the social-share image), name, a muted one-line bio, and the CV/GitHub/LinkedIn actions styled as GitHub's default and primary buttons (primary = GitHub green, not blue — blue is reserved for links/accent).
 
 **Key Characteristics:**
-- True off-white surface at chroma 0 — never a warm/AI cream.
-- One committed emerald hue carries brand, action, and wayfinding.
-- Hairline borders and tonal restraint instead of shadow stacks.
-- Sharp corners (0 radius) — a technical, drafting-table feel.
-- Contrast is verified, not eyeballed: every text pair clears WCAG AA.
+- Dark header, light-or-dark body — the header never changes with the theme toggle.
+- 6px radius everywhere (buttons, boxes); pill radius only for chips/tags.
+- Borders + a near-invisible resting shadow separate surfaces; hover is a background tint, not a lift.
+- System font stack (`-apple-system, Segoe UI, ...`) for UI text; system monospace for data tokens.
+- A soft, toggleable light/dark theme — dark is GitHub's "dimmed" palette, not pure black.
 
-## 2. Colors
+## 2. Color
 
-A monochromatic emerald-and-ink palette: one hue (OKLCH 160), one voice. Neutrals are tinted a whisper toward the same emerald so surfaces and brand feel cut from one material.
+Token-driven via CSS custom properties on `:root`, overridden under `:root[data-theme="dark"]`. Every component references a token, never a literal, so the whole site re-themes from one attribute flip.
 
-### Primary
-- **Signal Emerald** (`oklch(50% 0.13 160)` / #007948): Links, hairline emphasis on hover, and the accent voice. 5.5:1 on white.
-- **Signal Emerald Strong** (`oklch(45% 0.115 160)` / #00683e): The primary CTA background (CV button) and small uppercase tech tags. 6.9:1 on white; white text on it also clears 4.5:1.
-- **Signal Emerald Hover** (`oklch(40% 0.10 160)` / #005634): Pressed/hover state on the primary button.
-- **Emerald Tint** (`oklch(95% 0.03 160)` / #def5e8): Reserved faint wash for accented surfaces.
+### Light (default)
+- **Canvas** `#ffffff` — page background.
+- **Canvas Subtle** `#f6f8fa` — hover tint, inset panels.
+- **Surface** `#ffffff` — box backgrounds. Intentionally the same as canvas; light-mode GitHub boxes are separated by their border, not a background shift.
+- **Border** `#d0d7de` / **Border Muted** `#d8dee4`.
+- **Fg** `#1f2328` (15.6:1 on canvas) / **Fg Muted** `#59636e` (5.1:1+ verified in-browser on every surface it appears on).
+- **Accent** `#0969da` (GitHub blue) — links, repo names, focus rings.
+- **Btn Primary** `#1f883d` (GitHub green) — the one primary-action color (CV button, Unlock).
+- **Header** `#1f2328` bg / `#f0f6fc` fg — dark, constant across themes.
 
-### Neutral
-- **Instrument White** (`oklch(99% 0 0)` / #fcfcfc): The page background. Chroma 0 — a true off-white, deliberately un-tinted so it can never drift into cream.
-- **Surface White** (`#ffffff`): Cards and panels, separated from the background by a hairline, not a shadow.
-- **Pine Ink** (`oklch(24% 0.012 160)` / #1a211d): Primary text. 16:1 on the background.
-- **Pine Ink Soft** (`oklch(38% 0.013 160)` / #3d4540): Lede and intro prose. 9.6:1.
-- **Sage Muted** (`oklch(46% 0.013 160)` / #525a55): Section eyebrows, dates, and secondary metadata. 6.9:1 — comfortably above the 4.5:1 floor that the previous gray failed.
-- **Hairline** (`oklch(90% 0.008 160)` / #dae0dc): All 1px borders and dividers.
-
-### Dark (closing block)
-- **Forest Black** (`oklch(22% 0.014 160)` / #151d18): The contact panel background.
-- **On-Dark** (`oklch(95% 0.006 160)`): Text on Forest Black. 14.9:1.
-- **On-Dark Accent** (`oklch(80% 0.09 160)`): The emerald eyebrow inside the contact panel. 9.6:1.
+### Dark ("dimmed" — softer than pure black)
+- **Canvas** `#22272e`, **Surface** `#2d333b` — here the surface genuinely lightens off the canvas (unlike light mode), matching real Primer dark-dimmed behavior, since dark surfaces need the lift for legibility.
+- **Border** `#444c56` / **Border Muted** `#373e47`.
+- **Fg** `#adbac7` (11.7:1) / **Fg Muted** `#909dab` (6.6:1).
+- **Accent** `#539bf5`, **Btn Primary** `#347d39`.
+- **Header** `#1c2128` bg / `#cdd9e5` fg — very close to the light header color, so the header barely shifts when the theme toggles. Deliberate: the header is the one constant.
+- Resting shadow is disabled (`none`) in dark mode; borders alone carry separation.
 
 ### Named Rules
-**The One Voice Rule.** Emerald is the only chromatic voice on the page. It appears on the primary CTA, links, tech tags, hover accents, and the contact block — nowhere else. No second brand hue (the old blue and rose are gone). Its restraint is what makes it read as intentional.
+**The Header-Stays-Dark Rule.** The header background/foreground pair does not follow the light/dark toggle the way every other surface does — both theme blocks point it at a near-black. This is the single most recognizable "looks like GitHub" signal on the page; don't theme it away.
 
-**The No-Cream Rule.** The body surface is chroma 0. Warmth is forbidden in the background; it is carried by copy and the emerald, never by a beige tint. If a neutral ever needs tinting, it tints toward emerald (hue 160), never toward warm orange.
+**The Border-Not-Tint Rule (light mode only).** In light mode, box surfaces equal the canvas color; separation is the border and the barely-there resting shadow, never a gray fill. In dark mode surfaces DO lighten off the canvas — the asymmetry is intentional and matches GitHub's own token behavior.
 
 ## 3. Typography
 
-**Sans (voice):** Hanken Grotesk (with `ui-sans-serif, system-ui` fallback) — a humanist grotesque with open apertures. Technical bones, human warmth. Carries hero, headings, prose, and labels.
-**Mono (data):** Spline Sans Mono (with `ui-monospace, Menlo` fallback) — reserved strictly for the "engineer's data": timeline dates, project tech-tags, and the footer status line.
-
-**Character:** One humanist grotesque across weights (400 body, 700 headings/labels, 800 hero) provides the voice; a monospace provides genuine *proportional-vs-monospace* contrast on the small data tokens only. The mono is never used for prose or headings — it labels code/numeric content, which is the one meaningful use of mono on a developer's site (not decoration).
-
-Loaded via Google Fonts with `display: swap`; only the four sans weights (400/500/700/800) and two mono weights (400/500) actually used are requested.
+**Sans:** the OS system-font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif`) — GitHub loads no webfont, and neither does this site anymore. Removing the Google Fonts request is also a real performance improvement.
+**Mono:** the OS system monospace stack (`ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`) — dates, `<code>` tokens, the footer status line.
 
 ### Hierarchy
-- **Display** (Hanken 800, `clamp(2.2rem, 5.2vw, 3.6rem)`, LH 0.98, `-0.025em`): The hero name. One per page. `text-wrap: balance`.
-- **Headline** (Hanken 700, `clamp(1.1rem, 1.9vw, 1.65rem)`, LH 1.12, `-0.015em`): Section headings.
-- **Title** (Hanken 700, 0.95rem, LH 1.25): Job titles and project names inside cards.
-- **Body** (Hanken 400, 1rem/16px, LH 1.5): Prose. Capped at ~60–62ch for readability.
-- **Label** (Hanken 700, 0.7rem, `letter-spacing: 0.1em`, UPPERCASE): Section eyebrows and `dt` metadata labels.
-- **Mono data** (Spline Sans Mono 500, 0.68–0.72rem, `letter-spacing: 0.02em`, UPPERCASE): Dates (`tabular-nums`), tech tags, footer.
+- **Display** (700, `clamp(1.75rem, 3.4vw, 2.25rem)`, LH 1.15): page/profile name. Deliberately smaller than the old 3.6rem hero — GitHub profile names don't shout.
+- **Headline** (600, `clamp(1.25rem, 1.9vw, 1.5rem)`, LH 1.25): section headings.
+- **Title** (600, 1rem): job titles, repo names (repo names are additionally colored `--accent`).
+- **Body** (400, 1rem/1.5): prose, capped ~60ch.
+- **Label** (600, 0.8125rem, sentence case): section kickers, `dt` metadata. Explicitly **not** uppercase or letter-spaced — seeing an uppercase tracked eyebrow repeated on every section is generic-AI-landing scaffolding; GitHub itself doesn't do this, and a plain, quiet sentence-case label reads as more deliberate.
+- **Mono data** (500, 0.72–0.8125rem): timeline dates, inline `<code>`, topic-pill logos' adjacent text where relevant, footer.
 
 ### Named Rules
-**The Two-Voice Rule.** Hanken Grotesk carries everything human — name, headings, prose, labels. Spline Sans Mono carries only machine data — dates, tech stack, the footer status line. A word is set in mono only if it is literally a datum (a date, a language, a system fact). Never mono for prose or headings; never sans for the data tokens. That boundary is the typographic system.
-
-**The Tracked-Caps Rule.** All-caps labels and mono tokens get positive tracking (`0.1em` for sans labels, `0.02em` for mono) so capitals don't crowd. Display type gets the opposite: negative tracking down to `-0.025em`.
+**No Webfont Rule.** Nothing in `<head>` loads a remote font. If a future change wants a webfont, that's a deliberate departure from "looks like GitHub," not a drive-by addition.
+**Sentence-Case Labels Rule.** Small section/meta labels are sentence case, never uppercase-tracked. This replaced the old system's uppercase eyebrow treatment as part of this pivot.
 
 ## 4. Elevation
 
-Flat by default. There is no ambient shadow system; separation comes from hairline borders (`Hairline` / #dae0dc) on a near-white field. Depth appears only as a *response to interaction*.
-
-### Shadow Vocabulary
-- **Hover Lift** (`box-shadow: 0 20px 60px rgba(17, 40, 30, 0.10)` + `translateY(-2px)`): The single shadow in the system, applied only to timeline entries and project cards on hover, paired with an emerald hairline. Green-tinted so the shadow reads as part of the brand, not a generic gray drop.
+Borders do the separating work; the one shadow (`0 1px 0 rgba(31,35,40,0.04)`) is a near-invisible resting hairline under boxes and buttons in light mode only — it's disabled entirely in dark mode (`--shadow-resting: none`), where the lighter surface color against the darker canvas already reads as separation.
 
 ### Named Rules
-**The Flat-By-Default Rule.** Surfaces are flat and border-separated at rest. The one shadow is a hover response, never a resting decoration. If a card has a shadow while idle, it's wrong.
+**No Hover-Lift Rule.** The previous system's `translateY(-2px)` hover lift is gone. GitHub's own list/card hover is a background tint (`--canvas-subtle`) and a border-color shift, nothing that moves. Motion here is fast (120ms) and flat, not springy.
 
 ## 5. Components
 
 ### Buttons
-- **Shape:** Sharp corners (0 radius) throughout.
-- **Primary (CV):** Signal Emerald Strong background, white text, `6px 10px` padding. Hover → Signal Emerald Hover.
-- **Ghost (GitHub / LinkedIn):** White background, Pine Ink text, Hairline border. Hover → emerald border, emerald text.
+- **Shape:** 6px radius throughout (`--radius`).
+- **Primary** (CV button, gate Unlock): `--btn-primary-bg` (GitHub green), white text. Hover darkens.
+- **Default** (GitHub, LinkedIn, Email, GitHub-in-contact): `--btn-bg` (near-canvas gray), 1px translucent border, `--fg` text. Hover lightens/darkens the bg slightly.
+- Blue (`--accent`) is never used for a button background — it's reserved for links/repo-names/focus rings, matching GitHub's own hierarchy where blue means "navigate" and green means "primary action."
 
-### Chips / Tech Tags
-- **Style:** No background or border — text only. Signal Emerald Strong, 0.66rem, 800 weight, tracked uppercase, often preceding a small inline tech logo.
-- **Purpose:** Categorize projects by stack (PYTHON, SELENIUM, R, SCRAPING).
+### Boxes (timeline entries, project cards, intro panel, goal cards, gate card, progress note)
+- 1px `--border`, `--radius` (6px) corners, `--surface` background, `--shadow-resting`.
+- Interactive boxes (project, goal-card) get a `--canvas-subtle` background + border-color shift on hover/focus-visible — no lift, no drop-shadow.
 
-### Cards / Containers
-- **Corner Style:** Sharp (0 radius).
-- **Background:** Surface White on the Instrument White field.
-- **Border:** 1px Hairline on the full perimeter — never a side-stripe.
-- **Shadow Strategy:** None at rest; Hover Lift on interaction (see Elevation).
-- **Internal Padding:** `10–14px`.
+### Topic pills / filter chips
+- Full pill radius (999px). Topics: `color-mix(in oklab, var(--accent) 14%, transparent)` background, `--accent` text — the tint recomputes automatically per theme since it's derived from the accent token, not a separate literal. Filter chips: bordered outline by default, same tinted-pill treatment when active.
 
-### Navigation
-- **Style:** Sticky top bar with a blurred backdrop; a bordered pill group holding Work / Projects / Contact.
-- **States:** Pine Ink default → Signal Emerald Strong on hover. The "ME" mark is an ink-filled square with off-white letters.
-- **Mobile:** Pills wrap and right-align under the mark.
+### Header / Navigation
+- Full-width dark bar (`--header-bg`/`--header-fg`), sticky, solid (no blur/glass). A constrained-width inner row holds the mark, nav links, and the theme toggle.
+- Nav links: `--header-fg-muted` default → `--header-fg` + subtle white-wash background on hover. No pill/bordered container around the nav group anymore.
+- **Theme toggle:** icon-only button (sun/moon), lives at the right end of the header. Persists choice to `localStorage`; the initial value falls back to `prefers-color-scheme` via a blocking inline script in `<head>` (before the stylesheet), so there is no flash of the wrong theme on load.
+- The `.mark` (site logo) is a 32px, 6px-radius square: `--header-fg`-colored fill, `--header-bg`-colored glyph — a light tile on the dark header, deliberately evoking GitHub's own light-mark-on-dark-header org/app icon.
 
-### Contact Block (signature)
-- The page's one saturated surface: a Forest Black full-width panel with an On-Dark Accent emerald eyebrow, light heading, and two translucent-bordered ghost links (Email, GitHub) that brighten to emerald on hover.
+### Hero (profile header)
+- Circular avatar (`assets/avatar.jpg`, 104px, 1px border) + name + a one-line muted bio + the button row — modeled on a GitHub user profile sidebar, not a marketing hero.
+
+### Contact block
+- Reuses the header tokens (`--header-bg`/`--header-fg`) rather than a separate third dark color — the header and the closing panel are the same dark material, bookending the page. This intentionally replaces the old system's unique "forest black" with the same dark used everywhere else, for one fewer named color.
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** keep the body surface at chroma 0 (Instrument White). A true off-white, never cream.
-- **Do** reserve emerald for action, links, tech tags, hover, and the contact block — the One Voice Rule.
-- **Do** separate surfaces with 1px Hairline borders; keep the system flat until hover.
-- **Do** verify any new text/background pair against WCAG AA (4.5:1 body, 3:1 large/UI) before shipping. Sage Muted is the floor; don't go lighter for body or labels.
-- **Do** cap prose at ~60–75ch and use `text-wrap: balance` on headings.
-- **Do** keep corners sharp (0 radius) for the drafting-table feel.
+- **Do** drive every color through the `--token` custom properties; never hardcode a literal that has a token.
+- **Do** keep the header dark in both themes — it's the signature "looks like GitHub" cue.
+- **Do** use `color-mix(in oklab, var(--accent) N%, transparent)` for tinted pill backgrounds so they re-theme automatically.
+- **Do** verify new text/background pairs against WCAG AA in both themes before shipping (verified in-browser for all current pairs: 4.2:1–15.6:1).
+- **Do** keep motion fast (120–160ms) and flat — background/border-color transitions, no translateY lifts.
+- **Do** honor `prefers-reduced-motion` (already handled globally) and avoid a flash-of-wrong-theme on load (the blocking inline script in `<head>` handles this — don't remove it).
 
 ### Don't:
-- **Don't** reintroduce a warm cream/sand/paper background, a tinted near-white, or a grid overlay. This is the "generic AI landing" anti-reference, named in PRODUCT.md.
-- **Don't** use gradient text, `background-clip: text`, or any decorative gradient.
-- **Don't** add a second brand hue (no blue, no rose). One voice.
-- **Don't** put muted gray text on a colored background, or use a light gray below Sage Muted for body copy — the old #66706b failed contrast.
-- **Don't** use `border-left`/`border-right` > 1px as a colored accent stripe on cards or list items.
-- **Don't** stack resting drop-shadows; the only shadow is the emerald-tinted Hover Lift.
-- **Don't** let the section eyebrows grow back into loud accent-colored kickers on every section — keep them quiet Sage Muted metadata, and prefer a single deliberate cadence over per-section scaffolding.
-- **Don't** use Inter, Geist, or Space Grotesk — the reflex dev-portfolio defaults this system deliberately moved off. Hanken Grotesk (voice) + Spline Sans Mono (data) is the committed pairing.
-- **Don't** set prose or headings in the mono, or the data tokens (dates, tech tags) in the sans. The Two-Voice boundary is the system.
+- **Don't** reintroduce uppercase-tracked eyebrows above every section — sentence-case labels only.
+- **Don't** put a background tint on light-mode boxes; the border does that job. Dark mode is the exception (surface genuinely lightens off canvas there).
+- **Don't** load a webfont. The system-font stack IS the GitHub look; a custom typeface would undo it.
+- **Don't** use blue for a button's background — blue is for links/accent only, green is the one primary-action color.
+- **Don't** add hover-lift/translateY motion back to cards; GitHub's own hover language is a flat background tint.
+- **Don't** let the theme toggle flash the wrong theme on load — the anti-FOUC inline script must stay first in `<head>`, before the stylesheet.
