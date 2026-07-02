@@ -28,45 +28,63 @@
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Claude Code</p>
-          <h1>Proficiency progress</h1>
-          <p class="lede">
-            A running log of a structured practice project — prompting, memory,
-            plan mode, subagents, custom commands, hooks, skills, and evals.
-            Source updates in <code>progress.json</code>.
-          </p>
+    <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-heading">
+      <form id="gate-form" class="gate-card">
+        <p class="eyebrow">Restricted</p>
+        <h2 id="gate-heading">Enter password</h2>
+        <p class="gate-copy">This page is password protected.</p>
+        <div class="gate-row">
+          <label class="visually-hidden" for="gate-input">Password</label>
+          <input id="gate-input" class="gate-input" type="password" autocomplete="off" placeholder="Password" autofocus required>
+          <button type="submit" class="button primary">Unlock</button>
         </div>
-      </section>
+        <p class="gate-error" id="gate-error" hidden>Incorrect password — try again.</p>
+      </form>
+    </div>
 
-      <section class="section progress-section">
-        <div>
-          <div class="progress-bar-outer"><div class="progress-bar-inner" id="bar"></div></div>
-          <div class="progress-stats">
-            <span id="fraction">0 / 0 goals</span>
-            <strong id="percent">0%</strong>
+    <div id="gated-content">
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Claude Code</p>
+            <h1>Proficiency progress</h1>
+            <p class="lede">
+              A running log of a structured practice project — prompting, memory,
+              plan mode, subagents, custom commands, hooks, skills, and evals.
+              Source updates in <code>progress.json</code>.
+            </p>
           </div>
+        </section>
 
-          <div class="filter-chips" id="categories"></div>
-          <div class="goal-grid" id="grid"></div>
+        <section class="section progress-section">
+          <div>
+            <div class="progress-bar-outer"><div class="progress-bar-inner" id="bar"></div></div>
+            <div class="progress-stats">
+              <span id="fraction">0 / 0 goals</span>
+              <strong id="percent">0%</strong>
+            </div>
 
-          <p class="progress-note">
-            Toggling a card here only updates this browser (stored in
-            <code>localStorage</code>) — it doesn't rewrite the file. To make a
-            change permanent, edit <code>progress.json</code> and redeploy.
-          </p>
-        </div>
-      </section>
-    </main>
+            <div class="filter-chips" id="categories"></div>
+            <div class="goal-grid" id="grid"></div>
 
-    <footer>
-      <span>&copy; 2026 Matteo Esposito</span>
-      <span>Static on GitHub Pages</span>
-    </footer>
+            <p class="progress-note">
+              Toggling a card here only updates this browser (stored in
+              <code>localStorage</code>) — it doesn't rewrite the file. To make a
+              change permanent, edit <code>progress.json</code> and redeploy.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>&copy; 2026 Matteo Esposito</span>
+        <span>Static on GitHub Pages</span>
+      </footer>
+    </div>
 
     <script>
+      const PASSWORD = "AIE";
+      const GATE_KEY = "claude-progress-unlocked";
       const STORAGE_KEY = "claude-progress-overrides";
       let activeCategory = "All";
 
@@ -142,7 +160,39 @@
           });
       }
 
-      loadGoals().then(render);
+      const gate = document.getElementById("gate");
+      const gatedContent = document.getElementById("gated-content");
+      const gateForm = document.getElementById("gate-form");
+      const gateInput = document.getElementById("gate-input");
+      const gateError = document.getElementById("gate-error");
+
+      function unlock() {
+        sessionStorage.setItem(GATE_KEY, "1");
+        gate.style.display = "none";
+        gatedContent.style.display = "block";
+        loadGoals().then(render);
+      }
+
+      if (sessionStorage.getItem(GATE_KEY) === "1") {
+        unlock();
+      } else {
+        gateInput.focus();
+      }
+
+      gateForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (gateInput.value === PASSWORD) {
+          gateError.hidden = true;
+          unlock();
+        } else {
+          gateError.hidden = false;
+          gateForm.classList.remove("shake");
+          void gateForm.offsetWidth;
+          gateForm.classList.add("shake");
+          gateInput.value = "";
+          gateInput.focus();
+        }
+      });
     </script>
   </body>
 </html>
