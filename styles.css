@@ -315,47 +315,6 @@ h3 {
   background: var(--btn-primary-hover);
 }
 
-.intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
-  gap: clamp(16px, 3vw, 32px);
-  padding: 16px 18px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow-resting);
-}
-
-.intro > p {
-  margin-bottom: 0;
-  max-width: 62ch;
-  color: var(--fg-muted);
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-dl {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-}
-
-dt {
-  color: var(--fg-muted);
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-dd {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 2px 0 0;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
 .section {
   display: grid;
   grid-template-columns: minmax(200px, 0.4fr) minmax(0, 1fr);
@@ -762,7 +721,6 @@ button.button {
   }
 
   .hero,
-  .intro,
   .section,
   .contact {
     grid-template-columns: 1fr;
@@ -773,7 +731,6 @@ button.button {
     padding-top: 24px;
   }
 
-  .intro,
   .contact {
     padding: 20px;
   }
@@ -810,11 +767,6 @@ button.button {
     font-size: clamp(1.6rem, 8vw, 2rem);
   }
 
-  .intro > p {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
   .hero-actions {
     gap: 8px;
   }
@@ -846,8 +798,7 @@ button.button {
   }
 
   .timeline article,
-  .project,
-  .intro {
+  .project {
     break-inside: avoid;
   }
 
