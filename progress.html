@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Claude Code Progress — Matteo Esposito</title>
+    <meta name="description" content="A running log of Claude Code proficiency exercises — prompting, memory, plan mode, subagents, skills, and evals.">
+    <link rel="canonical" href="https://matteo-esposito.github.io/progress.html">
+    <meta property="og:title" content="Claude Code Progress — Matteo Esposito">
+    <meta property="og:description" content="A running log of Claude Code proficiency exercises.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matteo-esposito.github.io/progress.html">
+    <meta name="theme-color" content="#151d18">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23151d18'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='60' font-weight='800' fill='%23fcfcfc' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=Spline+Sans+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="mark" href="index.html" aria-label="Matteo Esposito home">ME</a>
+      <nav>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="progress.html">Progress</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Claude Code</p>
+          <h1>Proficiency progress</h1>
+          <p class="lede">
+            A running log of a structured practice project — prompting, memory,
+            plan mode, subagents, custom commands, hooks, skills, and evals.
+            Source updates in <code>progress.json</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section progress-section">
+        <div>
+          <div class="progress-bar-outer"><div class="progress-bar-inner" id="bar"></div></div>
+          <div class="progress-stats">
+            <span id="fraction">0 / 0 goals</span>
+            <strong id="percent">0%</strong>
+          </div>
+
+          <div class="filter-chips" id="categories"></div>
+          <div class="goal-grid" id="grid"></div>
+
+          <p class="progress-note">
+            Toggling a card here only updates this browser (stored in
+            <code>localStorage</code>) — it doesn't rewrite the file. To make a
+            change permanent, edit <code>progress.json</code> and redeploy.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Matteo Esposito</span>
+      <span>Static on GitHub Pages</span>
+    </footer>
+
+    <script>
+      const STORAGE_KEY = "claude-progress-overrides";
+      let activeCategory = "All";
+
+      async function loadGoals() {
+        const res = await fetch("progress.json");
+        const data = await res.json();
+        const overrides = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        return data.goals.map((g) => ({ ...g, done: overrides[g.id] ?? g.done }));
+      }
+
+      function saveOverride(id, done) {
+        const overrides = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        overrides[id] = done;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides));
+      }
+
+      function toggle(goals, id) {
+        const goal = goals.find((g) => g.id === id);
+        goal.done = !goal.done;
+        saveOverride(id, goal.done);
+        render(goals);
+      }
+
+      function render(goals) {
+        const total = goals.length;
+        const done = goals.filter((g) => g.done).length;
+        const pct = total ? Math.round((done / total) * 100) : 0;
+
+        document.getElementById("bar").style.transform = `scaleX(${pct / 100})`;
+        document.getElementById("fraction").textContent = `${done} / ${total} goals`;
+        document.getElementById("percent").textContent = `${pct}%`;
+
+        const categories = ["All", ...new Set(goals.map((g) => g.category))];
+        const catEl = document.getElementById("categories");
+        catEl.innerHTML = "";
+        categories.forEach((cat) => {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "chip" + (cat === activeCategory ? " active" : "");
+          chip.textContent = cat;
+          chip.setAttribute("aria-pressed", cat === activeCategory);
+          chip.addEventListener("click", () => {
+            activeCategory = cat;
+            render(goals);
+          });
+          catEl.appendChild(chip);
+        });
+
+        const gridEl = document.getElementById("grid");
+        gridEl.innerHTML = "";
+        goals
+          .filter((g) => activeCategory === "All" || g.category === activeCategory)
+          .forEach((g) => {
+            const card = document.createElement("div");
+            card.className = "goal-card" + (g.done ? " done" : "");
+            card.setAttribute("role", "checkbox");
+            card.setAttribute("aria-checked", String(g.done));
+            card.setAttribute("tabindex", "0");
+            card.innerHTML = `
+              <span class="goal-check">${g.done ? "✓" : ""}</span>
+              <span>
+                <h3>${g.id}. ${g.title}</h3>
+                <div class="goal-cat">${g.category}</div>
+              </span>`;
+            card.addEventListener("click", () => toggle(goals, g.id));
+            card.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggle(goals, g.id);
+              }
+            });
+            gridEl.appendChild(card);
+          });
+      }
+
+      loadGoals().then(render);
+    </script>
+  </body>
+</html>

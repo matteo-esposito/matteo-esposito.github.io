@@ -1,0 +1,19 @@
+{
+  "updated": "2026-07-02",
+  "goals": [
+    { "id": 1, "title": "Fix a bug with plain prompting", "category": "Prompting", "done": false },
+    { "id": 2, "title": "Generate and customize a CLAUDE.md", "category": "Memory", "done": false },
+    { "id": 3, "title": "Use Plan Mode for a real feature", "category": "Planning", "done": false },
+    { "id": 4, "title": "Watch task tracking on a multi-step change", "category": "Task Tracking", "done": false },
+    { "id": 5, "title": "Delegate a broad question to a subagent", "category": "Subagents", "done": false },
+    { "id": 6, "title": "Create a custom slash command", "category": "Custom Commands", "done": false },
+    { "id": 7, "title": "Wire up a hook", "category": "Hooks", "done": false },
+    { "id": 8, "title": "Run a review pass before shipping", "category": "Review", "done": false },
+    { "id": 9, "title": "Practice git discipline", "category": "Git", "done": false },
+    { "id": 10, "title": "Practice context discipline", "category": "Context", "done": false },
+    { "id": 11, "title": "Parallelize independent work", "category": "Parallelism", "done": false },
+    { "id": 12, "title": "Create a custom Skill", "category": "Skills", "done": false },
+    { "id": 13, "title": "Write evals for your skill", "category": "Skills", "done": false },
+    { "id": 14, "title": "Extend the progress dashboard", "category": "Tooling", "done": false }
+  ]
+}
