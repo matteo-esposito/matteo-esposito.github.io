@@ -29,7 +29,6 @@
           <nav>
             <a href="index.html#work">Work</a>
             <a href="index.html#projects">Projects</a>
-            <a href="progress.html">Progress</a>
             <a href="index.html#contact">Contact</a>
           </nav>
           <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
@@ -102,7 +101,8 @@
     <script>
       const GATE_KEY = "claude-progress-key";
       const STORAGE_KEY = "claude-progress-overrides";
-      let activeCategory = "All";
+      const FILTERS = ["All", "Remaining", "Done"];
+      let activeFilter = "All";
 
       function b64ToBytes(b64) {
         return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
@@ -162,17 +162,16 @@
         document.getElementById("fraction").textContent = `${done} / ${total} goals`;
         document.getElementById("percent").textContent = `${pct}%`;
 
-        const categories = ["All", ...new Set(goals.map((g) => g.category))];
         const catEl = document.getElementById("categories");
         catEl.innerHTML = "";
-        categories.forEach((cat) => {
+        FILTERS.forEach((filter) => {
           const chip = document.createElement("button");
           chip.type = "button";
-          chip.className = "chip" + (cat === activeCategory ? " active" : "");
-          chip.textContent = cat;
-          chip.setAttribute("aria-pressed", cat === activeCategory);
+          chip.className = "chip" + (filter === activeFilter ? " active" : "");
+          chip.textContent = filter;
+          chip.setAttribute("aria-pressed", filter === activeFilter);
           chip.addEventListener("click", () => {
-            activeCategory = cat;
+            activeFilter = filter;
             render(goals);
           });
           catEl.appendChild(chip);
@@ -181,7 +180,7 @@
         const gridEl = document.getElementById("grid");
         gridEl.innerHTML = "";
         goals
-          .filter((g) => activeCategory === "All" || g.category === activeCategory)
+          .filter((g) => activeFilter === "All" || (activeFilter === "Done") === g.done)
           .forEach((g) => {
             const card = document.createElement("div");
             card.className = "goal-card" + (g.done ? " done" : "");
