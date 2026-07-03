@@ -146,14 +146,18 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides));
       }
 
+      let justToggledId = null;
+
       function toggle(goals, id) {
         const goal = goals.find((g) => g.id === id);
         goal.done = !goal.done;
         saveOverride(id, goal.done);
-        render(goals);
+        justToggledId = id;
+        renderStats(goals);
+        renderGrid(goals);
       }
 
-      function render(goals) {
+      function renderStats(goals) {
         const total = goals.length;
         const done = goals.filter((g) => g.done).length;
         const pct = total ? Math.round((done / total) * 100) : 0;
@@ -161,7 +165,12 @@
         document.getElementById("bar").style.transform = `scaleX(${pct / 100})`;
         document.getElementById("fraction").textContent = `${done} / ${total} goals`;
         document.getElementById("percent").textContent = `${pct}%`;
+      }
 
+      // Switching filters swaps which goals are visible, so the grid gets a
+      // brief crossfade; a single checkbox toggle doesn't touch the chips
+      // and updates in place (see toggle() above), no crossfade needed.
+      function renderChips(goals) {
         const catEl = document.getElementById("categories");
         catEl.innerHTML = "";
         FILTERS.forEach((filter) => {
@@ -171,12 +180,21 @@
           chip.textContent = filter;
           chip.setAttribute("aria-pressed", filter === activeFilter);
           chip.addEventListener("click", () => {
+            if (filter === activeFilter) return;
             activeFilter = filter;
-            render(goals);
+            renderChips(goals);
+            const gridEl = document.getElementById("grid");
+            gridEl.classList.add("grid-fade-out");
+            window.setTimeout(() => {
+              renderGrid(goals);
+              gridEl.classList.remove("grid-fade-out");
+            }, 150);
           });
           catEl.appendChild(chip);
         });
+      }
 
+      function renderGrid(goals) {
         const gridEl = document.getElementById("grid");
         gridEl.innerHTML = "";
         goals
@@ -187,8 +205,9 @@
             card.setAttribute("role", "checkbox");
             card.setAttribute("aria-checked", String(g.done));
             card.setAttribute("tabindex", "0");
+            const justPopped = g.id === justToggledId;
             card.innerHTML = `
-              <span class="goal-check">${g.done ? "✓" : ""}</span>
+              <span class="goal-check${justPopped ? " pop" : ""}">${g.done ? "✓" : ""}</span>
               <span>
                 <h3>${g.id}. ${g.title}</h3>
                 <div class="goal-cat">${g.category}</div>
@@ -202,6 +221,13 @@
             });
             gridEl.appendChild(card);
           });
+        justToggledId = null;
+      }
+
+      function render(goals) {
+        renderStats(goals);
+        renderChips(goals);
+        renderGrid(goals);
       }
 
       const gate = document.getElementById("gate");
