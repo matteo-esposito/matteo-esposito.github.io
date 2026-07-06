@@ -17,3 +17,14 @@
     syncPressed();
   });
 })();
+
+(function () {
+  var cvButton = document.getElementById("cv-button");
+  if (!cvButton) return;
+
+  cvButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.open(cvButton.getAttribute("href"), "_blank");
+    window.open(cvButton.getAttribute("data-cv-fr"), "_blank");
+  });
+})();
